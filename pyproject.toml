@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "open data ghana"
+version = "0.1.0"
+description = "Open Data Ghana is a platform that curates and organizes links to publicly available datasets, with a focus on Ghanaian-centric data. It offers a comprehensive, user-friendly directory where individuals can discover, explore, and contribute to datasets, all while fostering open access to valuable information for research, machine learning, and other data-driven initiatives."
+authors = ["Francis Echesi <fechesi67@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+supabase = "^2.11.0"
+fastapi = {extras = ["all"], version = "^0.115.6"}
+python-dotenv = "^1.0.1"
+psycopg2-binary = "^2.9.10"
+sqlalchemy-utils = "^0.41.2"
+sqlmodel = "^0.0.22"
+
+
+[tool.poetry.group.dev.dependencies]
+alembic = "^1.14.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
