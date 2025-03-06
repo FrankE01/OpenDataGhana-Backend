@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from core import db, Session
 from schema import Tag
 from datetime import datetime, timezone
@@ -19,7 +19,7 @@ async def create_tag(input: Tag, session: Session = Depends(db.get_session)):
         session.commit()
     except Exception as e:
         session.rollback()
-        raise HTTPException(400)
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
     return tag.to_dict()
 
 
@@ -51,7 +51,7 @@ async def get_tag(tag_id: str, session: Session = Depends(db.get_session)):
 
     tag = session.query(Tag).filter(Tag.id == tag_id, Tag.deleted_at == None).first()
     if not tag:
-        raise HTTPException(404)
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
     return tag.to_dict()
 
 
@@ -63,7 +63,7 @@ async def update_tag(tag_id: str, input: Tag, session: Session = Depends(db.get_
 
     tag = session.query(Tag).filter(Tag.id == tag_id, Tag.deleted_at == None).first()
     if not tag:
-        raise HTTPException(404)
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
 
     tag.update(**input.model_dump(exclude=Tag.get_ignored_fields()))
     session.commit()
@@ -78,10 +78,10 @@ async def delete_tag(tag_id: str, session: Session = Depends(db.get_session)):
 
     tag = session.query(Tag).filter(Tag.id == tag_id, Tag.deleted_at == None).first()
     if not tag:
-        raise HTTPException(404)
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
 
     if tag.deleted_at:
-        raise HTTPException(404)
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
     tag.update(deleted_at=datetime.now(timezone.utc))
     session.commit()
     return tag.id

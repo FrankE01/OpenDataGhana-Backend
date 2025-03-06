@@ -1,4 +1,4 @@
-# My Python API Project
+# Open Data Ghana API
 
 ## Description
 This project is a Python-based API that provides endpoints for managing users, datasets and tags. It is built using FastAPI and SQLAlchemy for database interactions.
@@ -9,7 +9,7 @@ This project is a Python-based API that provides endpoints for managing users, d
     git clone https://github.com/FrankE01/OpenDataGhana-Backend.git
     cd OpenDataGhana-Backend
     ```
-2. Create and activate a virtual environment using [Poetry](https://python-poetry.org/):
+2. Create and activate a virtual environment using [UV](https://astral.sh/blog/uv):
     ```sh
     poetry shell
     ```
